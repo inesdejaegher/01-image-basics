@@ -74,7 +74,7 @@ def to_sitk_image(np_image, reference_img):
     """
 
     img = sitk.GetImageFromArray(np_image)
-    sitk.CopyInformation(reference_img)
+    img.CopyInformation(reference_img)
 
     return img
 
@@ -138,7 +138,7 @@ def extract_feature_median(img):
     EXTRACT_FEATURE_MEDIAN:
     # todo: apply median filter to image (hint: 'Median')
     """
-    median_img = sitk.Median(img, radius=2)
+    median_img = sitk.Median(img)
 
     return median_img
 
@@ -150,7 +150,7 @@ def postprocess_largest_component(label_img):
     """
     connected_components = sitk.ConnectedComponent(label_img)
     # todo: order the component by ascending component size (hint: 'RelabelComponent')
-    relabeled_components = sitk.RelaybelComponent(connected_components)
+    relabeled_components = sitk.RelabelComponent(connected_components)
 
     largest_component = relabeled_components == 1  # zero is background
     return largest_component
